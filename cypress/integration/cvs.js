@@ -1,8 +1,9 @@
 const submitZipCode = () => {
-  cy.wait(3000)
+  cy.intercept('https://depservices.cvs.com/dep/memberevents/publishmemberevents/*').as('getEvents')
+  cy.get('#address').type('{enter}')
+  cy.wait('@getEvents')
   cy.get('body').then(($body) => {
-    if ($body.text().includes('there are currently no appointments available')) {
-      cy.get('#address').type('{enter}')
+    if ($body.text().includes('there are currently no appointments available')) {      
       submitZipCode()
     } else {
       cy.readFile('alarm.mp3', 'base64').then((mp3) => {
@@ -16,6 +17,7 @@ const submitZipCode = () => {
 
 describe('My COVID script', () => {
   it('Visits CVS', () => {
+
     cy.visit('https://www.cvs.com')
     cy.contains('Schedule a COVID-19 vaccine').click()
 
@@ -45,7 +47,7 @@ describe('My COVID script', () => {
     cy.get('.btn-control').click()
 
     cy.contains('Start scheduling').click()
-    cy.get('#address').type('02459{enter}')
+    cy.get('#address').type('02459')
 
     submitZipCode()
   })
