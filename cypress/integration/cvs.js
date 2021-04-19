@@ -4,6 +4,12 @@ const submitZipCode = () => {
     if ($body.text().includes('there are currently no appointments available')) {
       cy.get('#address').type('{enter}')
       submitZipCode()
+    } else {
+      cy.readFile('alarm.mp3', 'base64').then((mp3) => {
+        const uri = 'data:audio/mp3;base64,' + mp3
+        const audio = new Audio(uri)
+        audio.play()
+      })
     }
   })
 }
