@@ -2,6 +2,7 @@ const submitZipCode = () => {
   cy.intercept('https://depservices.cvs.com/dep/memberevents/publishmemberevents/*').as('getEvents')
   cy.get('#address').type('{enter}')
   cy.wait('@getEvents')
+  cy.wait(1000);
   cy.get('body').then(($body) => {
     if ($body.text().includes('there are currently no appointments available')) {      
       submitZipCode()
