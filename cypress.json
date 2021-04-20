@@ -1,5 +1,4 @@
 {
     "defaultCommandTimeout": 60000,
-    "responseTimeout": 60000,
-    "retries": 10
+    "responseTimeout": 60000
 }

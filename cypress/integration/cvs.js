@@ -17,18 +17,14 @@ const submitZipCode = () => {
 }
 
 const clickScheduledYourAppointmentNow = () => {
-  cy.intercept('https://www.cvs.com/RETAGPV1/storedetails/V2/*').as('getStoreDetailsV2')
-  cy.intercept('https://www.cvs.com/RETAGPV1/storedetails/V1/*').as('getStoreDetailsV1')
   cy.visit('https://www.cvs.com')
-  cy.wait(['@getStoreDetailsV2', '@getStoreDetailsV1'])
-
   cy.contains('Schedule a COVID-19 vaccine').click()
 
-  // Massachuetts
-  cy.get(':nth-child(1) > ul > :nth-child(22) > div > .type__link__text > .link__text').click()
+  // Alabama
+  cy.get(':nth-child(1) > ul > :nth-child(1) > div > .type__link__text > .link__text').click()
 
   // Schedule an appointment now
-  cy.get('#vaccineinfo-MA > .modal__inner > .modal__content > .component__main > :nth-child(1) > .box > .boxcontainer > .box-container > .content__wrapper > .aem-Grid > :nth-child(3) > .rte-component-wraper > :nth-child(2) > .link__text > strong').click()
+  cy.get('#vaccineinfo-AL > .modal__inner > .modal__content > .component__main > :nth-child(1) > .box > .boxcontainer > .box-container > .content__wrapper > .aem-Grid > :nth-child(3) > .rte-component-wraper > :nth-child(2) > .link__text > strong').click()
 
   cy.wait(3000);
   cy.get('body').then(($body) => {
